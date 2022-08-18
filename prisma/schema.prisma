@@ -1,0 +1,37 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id       Int     @id @default(autoincrement())
+  email    String  @unique
+  /// @TypeGraphQL.omit(output: true, input: true)
+  password String
+  name     String  @default("anônimo")
+
+  posts Post[]
+
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now()) @updatedAt
+
+  @@map("users")
+}
+
+model Post {
+  id      Int     @id @default(autoincrement())
+  title   String
+  content String?
+
+  author   User @relation(fields: [authorId], references: [id])
+  authorId Int
+
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now()) @updatedAt
+
+  @@map("posts")
+}

@@ -3,8 +3,11 @@
 # ------------------------------------------------------
 
 input CreateUserInput {
+  """New user email"""
+  email: String!
+
   """New user name"""
-  name: String!
+  name: String
 
   """New user password"""
   password: String!
@@ -21,6 +24,9 @@ type Query {
 }
 
 input UpdateUserInput {
+  """New user email"""
+  email: String
+
   """User id to update"""
   id: Int!
 
